@@ -1,0 +1,3 @@
+filename=$1
+curr=$(pwd)
+cp /Users/yashdatta/Documents/Workspace/code/template/cpp/k.cpp $curr/$filename.cpp  
