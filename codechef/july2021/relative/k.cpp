@@ -4,8 +4,12 @@ using namespace std;
 
 int main() {
   ios_base::sync_with_stdio(false);cin.tie(0);
-  cout << setprecision(15) << fixed;
-  int n;
-  cin >> n; 
+  int t;
+  cin >> t;
+  while(t--) {
+    long long c, g;
+    cin >> g >> c;
+    cout << (c * c) / (2 * g) << "\n";
+  }
   return 0;
 }
