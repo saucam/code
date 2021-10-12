@@ -3,39 +3,45 @@
 using namespace std;
 
 int n[51];
+
+bool resolve(string &s, int i, vector<int> &out) {
+  if (i == s.size()) return true;
+  int sing = s[i] - '0';
+  if (sing == 0) return false;
+  if (n[sing] == 0) {
+    // cout << "setting sing = " << sing<<"\n";
+    n[sing] = 1;
+    out.push_back(sing);
+    bool p = resolve(s, i + 1, out);
+    if (p == true) return true;
+    n[sing] = 0;
+    out.pop_back();
+  }
+  if (i < s.size() - 1) {
+    int d = s[i + 1] - '0';
+    int num = (sing*10 + d);
+    if (num <= 50 && n[num] == 0) {
+      // cout << "setting num = " << num<<"\n";
+      n[num] = 1;
+      out.push_back(num);
+      bool p = resolve(s, i + 2, out);
+      if (p == true) return true;
+      n[num] = 0;
+      out.pop_back();
+    }
+  }
+  return false;
+}
+
 int main() {
+  vector<int> out;
   string s;
   int k = 0;
   cin >> s;
-  string num = "";
-  while(s[k] != '\0') {
-    if (num.size() == 2) {
-      int j = stoi(num);
-      if ((n[j] == 0) && (j <= 50) ) {
-        n[j] = 1;
-        cout << num << " ";
-        num = ""; 
-      } else {
-        int a = num[0] - '0';
-        int b = num[0] = '0';
-        n[a] = 1;
-        if (b == 0) {
-          cout << a << " " << b << " ";
-          num = "";
-          n[b] = 1;
-        } else {
-          num = num[1];
-          cout << a << " "; 
-        }
-      }
-    } else if ((num.size() == 0) && ((s[k] - '0') > 5)) {
-       cout << s[k] << " ";
-       n[s[k] - '0'] = 1;
-    } else {
-      num = num + s[k];
-    }
-    k++;
+  resolve(s, 0, out);
+  for(auto &e: out) {
+     cout << e << " ";
   }
-  cout << num << "\n";  
+  cout << "\n";  
   return 0;
 }

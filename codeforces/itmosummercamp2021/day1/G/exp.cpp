@@ -13,7 +13,7 @@ int main() {
      c[a]++;
   }
   for(auto a: v) {
-     if ((c[a] >= m) && (a != 0) && (c[a] == a)) { m = c[a]; }
+     if ((c[a] >= m) && (a != 0)) { m = c[a]; }
   }
   if (m == 0) cout << "-1" << "\n"; else cout << m << "\n";
   return 0;

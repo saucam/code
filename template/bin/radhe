@@ -1,3 +1,8 @@
 filename=$1
+temp=$2
+if [ -z "$2" ]
+  then
+    temp="cpp"
+fi
 curr=$(pwd)
-cp /Users/yashdatta/Documents/Workspace/code/template/cpp/k.cpp $curr/$filename.cpp  
+cp /Users/yashdatta/Documents/Workspace/code/template/$temp/k.$temp $curr/$filename.$temp

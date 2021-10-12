@@ -3,6 +3,7 @@ module Main(main) where
 import qualified Data.ByteString.Char8 as B
 import Data.Maybe
 import Data.Functor
+import Control.Arrow
  
 getNums :: B.ByteString -> [Int]
 getNums =
@@ -14,11 +15,8 @@ readInts :: IO [Int]
 readInts = getNums <$> B.getLine
  
 main::IO ()
-main = do
-	_ <- readInts
-	h <- readInts
-	let fn a b = min (a+1) b
-	let lft = tail $ scanl fn 0 h
-	let rt = reverse $ tail $ scanl fn 0 $ reverse h
-	let ans = (foldl max 0 $ zipWith min lft rt)::Int
-	print ans
+main = interact $
+	lines >>> map (words >>> map read >>> solve >>> show) >>> unlines
+
+solve :: [Integer] -> Integer
+solve [a, b] = abs(a - b)
